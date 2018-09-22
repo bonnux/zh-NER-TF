@@ -1,12 +1,15 @@
-import numpy as np
-import os, time, sys
+import os
+import sys
+import time
+
 import tensorflow as tf
-from tensorflow.contrib.rnn import LSTMCell
 from tensorflow.contrib.crf import crf_log_likelihood
 from tensorflow.contrib.crf import viterbi_decode
+from tensorflow.contrib.rnn import LSTMCell
+
 from data import pad_sequences, batch_yield
-from utils import get_logger
 from eval import conlleval
+from utils import get_logger
 
 
 class BiLSTM_CRF(object):
@@ -310,4 +313,3 @@ class BiLSTM_CRF(object):
         metric_path = os.path.join(self.result_path, 'result_metric_' + epoch_num)
         for _ in conlleval(model_predict, label_path, metric_path):
             self.logger.info(_)
-
